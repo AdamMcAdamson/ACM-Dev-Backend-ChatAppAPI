@@ -31,11 +31,11 @@ app.post('/send_message', (req, res) => {
     res.send('send_message Response');
 });
 
-app.get('/read_messages', (req, res) => {
+app.post('/read_messages', (req, res) => {
     var chat_id = res.body.chat_id;
     var sender = res.body.sender;
 
-    console.log("GET at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
+    console.log("POST at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
 
     res.send('read_messages Response');
 });
