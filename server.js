@@ -22,9 +22,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send_message', (req, res) => {
-    var chat_id = res.body.chat_id;
-    var sender = res.body.sender;
-    var message = res.body.message; 
+    var chat_id = req.body.chat_id;
+    var sender = req.body.sender;
+    var message = req.body.message; 
 
     console.log("POST at send_message RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender + "\t message: " + message);
 
@@ -32,8 +32,8 @@ app.post('/send_message', (req, res) => {
 });
 
 app.post('/read_messages', (req, res) => {
-    var chat_id = res.body.chat_id;
-    var sender = res.body.sender;
+    var chat_id = req.body.chat_id;
+    var sender = req.body.sender;
 
     console.log("POST at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
 
