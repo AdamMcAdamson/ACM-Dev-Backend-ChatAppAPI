@@ -2,15 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
+// uri.js: module.exports = "<INSERT MongoDB Altas URI HERE>"
+const uri = require('uri.js');
+
 const app = express();
 const port = process.env.PORT || 3000;
 const router = express.Router();
 
-// TODO: replace <password> and grab uri from .getignore'd file.
-// uri_ex = "mongodb+srv://abDBaccess:<password>@cluster0.vsy9n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const uri = "mongodb+srv://abDBaccess:<password>@cluster0.vsy9n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+const connection = client.connect();
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -28,6 +29,21 @@ app.post('/send_message', (req, res) => {
 
     console.log("POST at send_message RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender + "\t message: " + message);
 
+    var arrObj = {
+        timestamp: Date.UTC.now(),
+        sender: sender,
+        message: message
+    }
+
+    const connect = connection;
+    connect.then(() => {
+        const collection = client.db("chatappDB").collection("chatrooms");
+        collection.update({'_id':chat_id},{$push:{'messages':arrObj}})
+        coll.insertOne(doc, (err, result) => {
+            if(err) throw err;
+        });
+    });
+
     res.send('send_message Response');
 });
 
@@ -41,13 +57,6 @@ app.post('/read_messages', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`App listening at port: ${port}`);
 });
 
-/*
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-*/

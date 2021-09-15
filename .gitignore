@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# MongoDB uri (not hidden for ease-of-use)
+# uri.js
