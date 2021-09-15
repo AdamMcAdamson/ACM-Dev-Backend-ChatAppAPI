@@ -52,7 +52,7 @@ app.post('/read_messages', (req, res) => {
     const connect = connection;
     connect.then(() => {
         const collection = client.db("chatappDB").collection("chatrooms");
-        res.send(await collection.find({'_id':chat_id, "messages.sender" : sender}));
+        res.send(collection.find({'_id':chat_id, "messages.sender" : sender}));
     });
 
 });
