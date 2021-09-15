@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
 // uri.js: module.exports = "<INSERT MongoDB Altas URI HERE>"
@@ -15,8 +14,8 @@ const connection = client.connect();
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -38,7 +37,7 @@ app.post('/send_message', (req, res) => {
     const connect = connection;
     connect.then(() => {
         const collection = client.db("chatappDB").collection("chatrooms");
-        collection.update({'_id':chat_id},{$push:{'messages':arrObj}})
+        collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}})
         coll.insertOne(doc, (err, result) => {
             if(err) throw err;
         });
