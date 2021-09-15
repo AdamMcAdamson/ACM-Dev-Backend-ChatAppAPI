@@ -37,8 +37,8 @@ app.post('/send_message', (req, res) => {
     const connect = connection;
     connect.then(() => {
         const collection = client.db("chatappDB").collection("chatrooms");
-        collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}},{upsert: true}, (err, res) => {
-            res.send(res);
+        collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}},{upsert: true}, (err, result) => {
+            res.send(result);
         });
     });
 });
