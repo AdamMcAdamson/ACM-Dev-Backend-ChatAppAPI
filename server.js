@@ -37,13 +37,10 @@ app.post('/send_message', (req, res) => {
     const connect = connection;
     connect.then(() => {
         const collection = client.db("chatappDB").collection("chatrooms");
-        collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}})
-        coll.insertOne(doc, (err, result) => {
-            if(err) throw err;
+        collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}},{upsert: true}, (err, res) => {
+            res.send(res);
         });
     });
-
-    res.send('send_message Response');
 });
 
 app.post('/read_messages', (req, res) => {
@@ -52,7 +49,12 @@ app.post('/read_messages', (req, res) => {
 
     console.log("POST at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
 
-    res.send('read_messages Response');
+    const connect = connection;
+    connect.then(() => {
+        const collection = client.db("chatappDB").collection("chatrooms");
+        res.send(await collection.find({'_id':chat_id, "messages.sender" : sender}));
+    });
+
 });
 
 app.listen(port, () => {
