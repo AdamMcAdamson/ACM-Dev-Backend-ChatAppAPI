@@ -2,7 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 
 // uri.js: module.exports = "<INSERT MongoDB Altas URI HERE>"
-const uri = require('uri.js');
+const uri = require('./uri');
 
 const app = express();
 const port = process.env.PORT || 3000;
