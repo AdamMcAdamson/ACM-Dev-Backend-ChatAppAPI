@@ -29,7 +29,7 @@ app.post('/send_message', (req, res) => {
     console.log("POST at send_message RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender + "\t message: " + message);
 
     var arrObj = {
-        timestamp: Date.UTC.now(),
+        timestamp: Date.now(),
         sender: sender,
         message: message
     }
