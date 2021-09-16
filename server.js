@@ -81,7 +81,7 @@ app.post('/read_messages', (req, res) => {
                    }
                 }
             ])*/
-            var out = await db.articles.find(
+            var out = await collection.find(
                 { _id : chat_id },
                 { messages : { $elemMatch : { sender : sender } } }
               );
