@@ -42,6 +42,7 @@
     
     Existing chatrooms at the time of creation <[{chat_ids} ([senders])]>:
         Chat1   (Sender1, Sender2, Sender3)
+        Chat2   (Sender2)
     ------------------------------------------------------------------------------
 */
 
