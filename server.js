@@ -62,7 +62,7 @@ app.post('/read_messages', (req, res) => {
             //});           
         } else {
             console.log("Sender != null");
-            collection.find({_id: chat_id, 'messages.sender' : sender}).toArray((err, out) =>{
+            collection.find({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1}).toArray((err, out) =>{
                 res.send(out)
             });
         }
