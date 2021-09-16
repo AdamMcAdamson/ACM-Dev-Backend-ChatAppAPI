@@ -36,6 +36,7 @@ app.post('/send_message', (req, res) => {
 
     const connect = connection;
     connect.then(() => {
+        console.log("CONNECTED TO DB");
         const collection = client.db("chatappDB").collection("chatrooms");
         collection.updateOne({'_id':chat_id},{$push:{'messages':arrObj}},{upsert: true}, (err, result) => {
             res.send(result);
@@ -52,7 +53,13 @@ app.post('/read_messages', (req, res) => {
     const connect = connection;
     connect.then(() => {
         const collection = client.db("chatappDB").collection("chatrooms");
-        res.send(collection.find({'_id':chat_id, "messages.sender" : sender}));
+        if(sender == null){
+            console.log("Sender == null");
+            res.send(collection.find({'_id':chat_id}));            
+        } else {
+            console.log("Sender != null");
+            res.send(collection.find({'_id':chat_id, "messages.sender" : sender}));
+        }
     });
 
 });
