@@ -90,10 +90,21 @@ app.get('/', (req, res) => {
 // send_messages endpoint
 app.post('/send_message', (req, res) => {
 
-    // get body data, ensuring proper formatting
+    // get body data, ensuring proper formatting by removing invalid characters
     var chat_id = req.body.chat_id.replace(anRegex, '');
     var sender = req.body.sender.replace(anRegex, '');
-    var message = req.body.message; 
+    var message = req.body.message;
+
+    // invalid chat_id or invalid sender
+    if (chat_id == null || chat_id == "" ){
+        res.statusMessage = "Invalid sender, alphanumeric, non-null chat_ids only!";
+        res.status(400).end();
+        return;
+    } else if(sender == null || sender == ""){
+        res.statusMessage = "Invalid sender, alphanumeric, non-null sender names only!";
+        res.status(400).end();
+        return;
+    }
 
     // message object, to be inserted into proper chatroom document
     var messageObj = {
@@ -122,7 +133,7 @@ app.post('/read_messages', (req, res) => {
     // invalid sender
     if (sender != null && sender.match(anRegex) != null) {
         res.statusMessage = "Invalid sender, alphanumeric sender names only!";
-        res.status(404).end();
+        res.status(400).end();
         return;
     }
 
