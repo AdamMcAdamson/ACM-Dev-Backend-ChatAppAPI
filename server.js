@@ -156,8 +156,7 @@ app.post('/read_messages', (req, res) => {
         res.statusMessage = "Invalid chat_id, alphanumeric, non-blank sender names only!";
         res.status(400).end();
         return;   
-    }
-    else if(sender != null && sender.match(anRegex) != null) {
+    } else if(sender == "" || (sender != null && sender.match(anRegex) != null)) {
         res.statusMessage = "Invalid sender, alphanumeric, non-blank sender names only!";
         res.status(400).end();
         return;
