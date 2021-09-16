@@ -108,11 +108,11 @@ app.post('/send_message', (req, res) => {
     
     // invalid chat_id or sender
     if (chat_id == ""){
-        res.statusMessage = "Invalid chat_id, alphanumeric, non-empty chat_ids only!";
+        res.statusMessage = "Invalid chat_id, alphanumeric, non-blank chat_ids only!";
         res.status(400).end();
         return;
     } else if(sender == ""){
-        res.statusMessage = "Invalid sender, alphanumeric, non-empty sender names only!";
+        res.statusMessage = "Invalid sender, alphanumeric, non-blank sender names only!";
         res.status(400).end();
         return;
     }
@@ -140,12 +140,25 @@ app.post('/send_message', (req, res) => {
 
 // read_messages endpoint ((POST) by HTTP Request specifications)
 app.post('/read_messages', (req, res) => {
+
+    // verify the existence of the request's chat_id
+    if(req.body.chat_id == null){
+        res.statusMessage = "Invalid request, must include a chat_id!";
+        res.status(400).end();
+        return;
+    }
+
     var chat_id = req.body.chat_id.replace(anRegex, '');
     var sender = req.body.sender;
 
-    // invalid sender
-    if (sender != null && sender.match(anRegex) != null) {
-        res.statusMessage = "Invalid sender, alphanumeric sender names only!";
+    // invalid chat_id or sender
+    if(chat_id == ""){
+        res.statusMessage = "Invalid chat_id, alphanumeric, non-blank sender names only!";
+        res.status(400).end();
+        return;   
+    }
+    else if(sender != null && sender.match(anRegex) != null) {
+        res.statusMessage = "Invalid sender, alphanumeric, non-blank sender names only!";
         res.status(400).end();
         return;
     }
