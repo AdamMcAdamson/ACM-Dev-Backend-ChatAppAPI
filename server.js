@@ -88,8 +88,6 @@ app.post('/send_message', (req, res) => {
     var sender = req.body.sender.replace(anRegex, '');
     var message = req.body.message; 
 
-    //console.log("POST at send_message RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender + "\t message: " + message);
-
     // message object, to be inserted into proper chatroom document
     var messageObj = {
         timestamp: Date.now(),
@@ -102,7 +100,6 @@ app.post('/send_message', (req, res) => {
     // when connected, insert into the designated chatroom document,
     // creating a new document if the chatroom doesn't exist yet.
     connect.then(() => {
-        console.log("CONNECTED TO DB");
         const collection = client.db("chatappDB").collection("chatrooms");
         collection.updateOne({'_id':chat_id},{$push:{'messages':messageObj}},{upsert: true}, (err, result) => {
             res.send(result);
@@ -115,17 +112,12 @@ app.post('/read_messages', (req, res) => {
     var chat_id = req.body.chat_id.replace(anRegex, '');
     var sender = req.body.sender;
 
-    //debug
-    //if (sender != null) {console.log(sender.match(anRegex));}
-
     // invalid sender
     if (sender != null && sender.match(anRegex) != null) {
         res.statusMessage = "Invalid sender, alphanumeric sender names only!";
         res.status(404).end();
         return;
     }
-
-    //console.log("POST at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
 
     const connect = connection;
 
@@ -136,12 +128,10 @@ app.post('/read_messages', (req, res) => {
         const collection = client.db("chatappDB").collection("chatrooms");
 
         if(sender == null){                     // return the entire chatroom document (all messages)
-            //console.log("Sender == null");
             const out = await collection.findOne({_id: chat_id});
             res.send(out);        
         } 
         else {                                  // return the messages from the specified sender
-            //console.log("Sender == " + sender);
             collection.aggregate([
                 { $match: { _id : chat_id } },  // grab correct chatroom document
                 {
