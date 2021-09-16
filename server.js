@@ -67,6 +67,7 @@ app.post('/read_messages', (req, res) => {
             // collection.find({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1}).toArray((err, out) =>{
             //     res.send(out)
             // });
+            /*
             const out = await collection.aggregate([
                 {
                     $project: {
@@ -79,7 +80,11 @@ app.post('/read_messages', (req, res) => {
                         }
                    }
                 }
-            ])
+            ])*/
+            var out = await db.articles.find(
+                { _id : chat_id },
+                { messages : { $elemMatch : { sender : sender } } }
+              );
             res.send(out);
         }
     });
