@@ -2,18 +2,20 @@
     To setup, deploy ant test ACM-Dev-Backend-ChatAppApi:
     ------------------------------------------------------------------------------
 
-    Server (Heroku):
+    @Server (Heroku):
     ----------------------------------------
     Install Git and Heroku CLI.
     Clone this Github repository to your local device.
     Run npm install.
+    Set @dbName and @collectionName accordingly (see @Database below for details);
+    Add and commit the changes to your clone repository.
     Create a Heroku remote. (heroku create -> git remote -v)
     Push the repository to your heroku remote (git push heroku master).
-    
+
     Follow https://devcenter.heroku.com/articles/git for more specific details.
 
 
-    Database (MongoDB Atlas):
+    @Database (MongoDB Atlas):
     ----------------------------------------
     Deploy a MongoDB cluster over the cloud (Atlas..).
     Setup database {dbName} with a collection {collectionName}.
@@ -24,7 +26,7 @@
 
     Follow https://docs.atlas.mongodb.com/getting-started/ for more specific details.
 
-    Testing:
+    @Testing:
     ----------------------------------------
     Using an API Testing tool such Postman or Insomia.
     Send POST requests to the send_messages and read_messages endpoints as specified:
