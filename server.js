@@ -115,6 +115,9 @@ app.post('/read_messages', (req, res) => {
     var chat_id = req.body.chat_id.replace(anRegex, '');
     var sender = req.body.sender;
 
+    //debug
+    if (sender != null) {console.log(sender.match(anRegex));}
+
     // invalid sender
     if (sender != null && sender.match(anRegex) != []) {
         res.statusMessage = "Invalid sender, alphanumeric sender names only!";
