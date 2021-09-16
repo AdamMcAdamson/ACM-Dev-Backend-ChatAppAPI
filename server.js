@@ -51,15 +51,18 @@ app.post('/read_messages', (req, res) => {
     console.log("POST at read_messages RECIEVED:\nchat_id: " + chat_id + "\t sender: " + sender);
 
     const connect = connection;
-    connect.then(() => {
+    connect.then(async() => {
         const collection = client.db("chatappDB").collection("chatrooms");
         if(sender == null){
             console.log("Sender == null");
-            var out = collection.find({});
-            res.send(out);            
+            const out = await collection.findOne({_id: chat_id});
+            res.send(out)
+            //.toArray((err, result)=> {
+            //    res.send(result[0]);
+            //});           
         } else {
             console.log("Sender != null");
-            var out = collection.find({_id: chat_id, 'messages.sender' : sender});
+            var out = await collection.findOne({_id: chat_id}, {projection: 'messages.sender' : sender});
             res.send(out);
         }
     });
