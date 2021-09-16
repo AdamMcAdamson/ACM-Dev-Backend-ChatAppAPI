@@ -55,10 +55,12 @@ app.post('/read_messages', (req, res) => {
         const collection = client.db("chatappDB").collection("chatrooms");
         if(sender == null){
             console.log("Sender == null");
-            res.send(collection.find({_id: chat_id}));            
+            var out = await collection.find({_id: chat_id})
+            res.send(out);            
         } else {
             console.log("Sender != null");
-            res.send(collection.find({_id: chat_id, 'messages.sender' : sender}));
+            var out = await collection.find({_id: chat_id, 'messages.sender' : sender});
+            res.send(out);
         }
     });
 
