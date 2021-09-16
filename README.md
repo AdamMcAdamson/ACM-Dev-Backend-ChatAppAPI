@@ -30,7 +30,7 @@ My solution to UT Dallas's ACM Development application: Back-end Challenge A - C
 ----------------------------------------
 - Using an API Testing tool such Postman or Insomia.
 - Send POST requests to the send_messages and read_messages endpoints as specified:
-    ```json
+    ```
     send_messages:                      read_messages:       
     req.body = {                        req.body = {
         chat_id: {chat_id},                 chat_id: {chat_id},
@@ -45,7 +45,7 @@ My solution to UT Dallas's ACM Development application: Back-end Challenge A - C
   and
     https://backend-chat-app-api.herokuapp.com/send_messages
 
-Existing chatrooms at the time of creation <[{chat_ids} ([senders])]>:
+- Existing chatrooms at the time of creation <[{chat_ids} ([senders])]>:
     - Chat1   (Sender1, Sender2, Sender3)
     - Chat2   (Sender2)
 ------------------------------------------------------------------------------
