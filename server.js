@@ -108,11 +108,11 @@ app.post('/send_message', (req, res) => {
     
     // invalid chat_id or sender
     if (chat_id == ""){
-        res.statusMessage = "Invalid chat_id, alphanumeric chat_ids only!";
+        res.statusMessage = "Invalid chat_id, alphanumeric, non-empty chat_ids only!";
         res.status(400).end();
         return;
     } else if(sender == ""){
-        res.statusMessage = "Invalid sender, alphanumeric sender names only!";
+        res.statusMessage = "Invalid sender, alphanumeric, non-empty sender names only!";
         res.status(400).end();
         return;
     }
