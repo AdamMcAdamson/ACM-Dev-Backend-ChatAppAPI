@@ -81,11 +81,13 @@ app.post('/read_messages', (req, res) => {
                    }
                 }
             ])*/
-            var out = await collection.find(
+            collection.find(
                 { _id : chat_id },
                 { messages : { $elemMatch : { sender : sender } } }
-              );
-            res.send(out);
+              ).toArray((err, out) => {
+                  res.send(out);
+              });
+            //res.send(out);
         }
     });
 
