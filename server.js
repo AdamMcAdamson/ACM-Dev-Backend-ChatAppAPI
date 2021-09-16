@@ -81,8 +81,9 @@ app.post('/read_messages', (req, res) => {
                         }
                    }
                 }
-            ])
-            res.send(out);
+            ]).toArray((err, out)=> {
+                if (out.length > 0) { res.send(out[0]); }
+            });
         }
     });
 
