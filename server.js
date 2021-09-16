@@ -110,7 +110,7 @@ app.post('/send_message', (req, res) => {
     });
 });
 
-// read_messages endpoint ((POST) by HTML Request specifications)
+// read_messages endpoint ((POST) by HTTP Request specifications)
 app.post('/read_messages', (req, res) => {
     var chat_id = req.body.chat_id.replace(anRegex, '');
     var sender = req.body.sender;
