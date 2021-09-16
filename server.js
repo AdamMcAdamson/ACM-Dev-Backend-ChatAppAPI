@@ -62,7 +62,7 @@ app.post('/read_messages', (req, res) => {
             //});           
         } else {
             console.log("Sender == " + sender);
-            const out = await collection.find({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1});
+            const out = await collection.findOne({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1});
             res.send(out)
             // collection.find({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1}).toArray((err, out) =>{
             //     res.send(out)
