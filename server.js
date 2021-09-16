@@ -62,7 +62,7 @@ app.post('/read_messages', (req, res) => {
             //});           
         } else {
             console.log("Sender != null");
-            var out = await collection.findOne({_id: chat_id}, {projection: 'messages.sender' : sender});
+            var out = await collection.findOne({_id: chat_id}, {projection: {'messages.sender' : sender}});
             res.send(out);
         }
     });
