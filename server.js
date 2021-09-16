@@ -56,14 +56,15 @@ app.post('/read_messages', (req, res) => {
         if(sender == null){
             console.log("Sender == null");
             const out = await collection.findOne({_id: chat_id});
-            res.send(out)
+            res.send(out);
             //.toArray((err, result)=> {
             //    res.send(result[0]);
             //});           
         } else {
             console.log("Sender != null");
-            var out = await collection.findOne({_id: chat_id}, {projection: {'messages.sender' : sender}});
-            res.send(out);
+            collection.find({_id: chat_id, 'messages.sender' : sender}).toArray((err, out) =>{
+                res.send(out)
+            });
         }
     });
 
