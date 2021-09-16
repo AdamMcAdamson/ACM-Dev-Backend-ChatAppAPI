@@ -67,27 +67,22 @@ app.post('/read_messages', (req, res) => {
             // collection.find({_id: chat_id, 'messages.sender' : sender}, {"messages.$" : 1}).toArray((err, out) =>{
             //     res.send(out)
             // });
-            /*
+            
             const out = await collection.aggregate([
+                { $match: { _id : chat_id } },
                 {
                     $project: {
                         messages: {
                             $filter: {
-                                input: "$details",
-                                as: "out",
-                                cond: { $eq:["$$out.sender", sender] }
+                                input: "$messages",
+                                as: "messages",
+                                cond: { "$eq" :["$messages.sender", sender] }
                             }
                         }
                    }
                 }
-            ])*/
-            collection.find(
-                { _id : chat_id },
-                { messages : { $elemMatch : { sender : sender } } }
-              ).toArray((err, out) => {
-                  res.send(out);
-              });
-            //res.send(out);
+            ])
+            res.send(out);
         }
     });
 
