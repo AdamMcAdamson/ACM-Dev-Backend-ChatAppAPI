@@ -9,6 +9,7 @@
     Run npm install.
     Create a Heroku remote. (heroku create -> git remote -v)
     Push the repository to your heroku remote (git push heroku master).
+    
     Follow https://devcenter.heroku.com/articles/git for more specific details.
 
 
@@ -16,9 +17,12 @@
     ----------------------------------------
     Deploy a MongoDB cluster over the cloud (Atlas..).
     Setup database {dbName} with a collection {collectionName}.
-    Setup database user for the cluster with read-write permissions to {dbName}@{collectionName} 
-    Enter the MongoDB connection URI (@uri) in uri.js.
+    Add your server's IP address to your cluster's IP access list.
+    Create a database user for the cluster with read-write permissions to {dbName}@{collectionName} 
+    Enter the MongoDB connection URI for your database user (@uri) in uri.js.
     Set @dbName and @collectionName accordingly;
+
+    Follow https://docs.atlas.mongodb.com/getting-started/ for more specific details.
 
     Testing:
     ----------------------------------------
