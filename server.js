@@ -75,8 +75,8 @@ app.post('/read_messages', (req, res) => {
                         messages: {
                             $filter: {
                                 input: "$messages",
-                                as: "messages",
-                                cond: { "$eq" :["$messages.sender", sender] }
+                                as: "message",
+                                cond: { "$eq" :["$$message.sender", sender] }
                             }
                         }
                    }
