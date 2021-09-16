@@ -116,7 +116,7 @@ app.post('/read_messages', (req, res) => {
     var sender = req.body.sender;
 
     // invalid sender
-    if (sender.match(anRegex) != "") {
+    if (sender != null && sender.match(anRegex) != "") {
         res.statusMessage = "Invalid sender, alphanumeric sender names only!";
         res.status(404).end();
         return;
